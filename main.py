@@ -1,25 +1,12 @@
-import numpy as np
 from PIL import Image
+import numpy as np
+
 
 img_filename = input("please enter path of your image: ")
-save_filename = 'results/output.jpg'
 
-######################################
-# READ IMAGE FROM FILE
-######################################
-#load file as pillow Image 
-img = Image.open(img_filename)
+image = Image.open(img_filename)
+img_array = np.asarray(image.convert(mode='L'))
 
-# convert to grayscale
-imgray = img.convert(mode='L')
-
-#convert to NumPy array
-img_array = np.asarray(imgray)
-
-
-######################################
-# PERFORM HISTOGRAM EQUALIZATION
-######################################
 
 """
 STEP 1: Normalized cumulative histogram
@@ -58,4 +45,4 @@ eq_img_array = np.reshape(np.asarray(eq_img_list), img_array.shape)
 ######################################
 #convert NumPy array to pillow Image and write to file
 eq_img = Image.fromarray(eq_img_array, mode='L')
-eq_img.save(save_filename)
+eq_img.save('results/output.jpg')
